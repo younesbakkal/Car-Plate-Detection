@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Marsa Maroc</title>
+    <style>
+       *
+		{
+			margin:  0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: 'Poppins' , sans-serif;
+		}
+		section
+		{
+			position: absolute;
+			right: 0;
+			width: 100%;
+			min-height: 100vh;
+			padding:  100px;
+			display: flex;
+			justify-content: flex-start ;
+			align-items: center;
+			background: #111;
+			transition:  0.5s;
+		}
+
+		header
+		{
+			position:  absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			padding:  40px 100px;
+			display:  flex;
+			justify-content: space-between;
+			align-items: center;
+			z-index: 1000;
+		}
+		header .logo
+		{
+			color: #ff0000;
+			text-transform: uppercase;
+			cursor: pointer;
+		}
+		.toggle
+		{
+			position: relative ;
+			width: 60px;
+			height: 60px;
+			background: url(menu.png);
+			background-repeat: no-repeat;
+			background-size: 30px;
+			background-position: center;
+			cursor: pointer;
+		}
+
+		section video
+		{
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+		.overlay
+		{
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%; 
+			mix-blend-mode: overlay;
+			backdrop-filter: blur(10px);
+		}
+		.text
+		{
+			position: relative;
+			z-index: 10;
+		}
+		.text h3
+		{
+			font-size: 4em;
+			font-weight: 700;
+			color: #fff;
+			line-height: 1em;
+			text-transform: uppercase;
+		}
+		.text p
+		{
+			position: relative;
+			font-size: 1.1em;
+			margin: 20px 0;
+			font-weight: 400;
+			max-width: 700px;
+			color: #fff;
+		}
+		.text a
+		{
+			display: inline-block ;
+			font-size: 1.1em;
+			background: #ff0000;
+			padding:  10px 30px;
+			text-transform: uppercase;
+			text-decoration: none;
+			font-weight: 500 ;
+			margin-top: 10px;
+			color: #fff;
+			letter-spacing: 2px;
+		}
+		.sci 
+		{
+			position: absolute;
+			z-index: 10;
+			bottom: 20px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.sci li 
+		{
+			list-style: none;
+		}
+		.sci li a 
+		{
+			display: inline-block;
+			margin-right: 20px;
+			filter: invert(1);
+			transform: scale(0.5);
+		}
+    </style>
+</head>
+<body>
+    <section class="banner">
+        <header>
+            <h2 class="logo">Marsa Maroc</h2>
+            <div class="toggle"></div>
+        </header>
+        <video src="/static/images/videodelbackground.mp4" muted loop autoplay></video>
+
+        <div class="overlay"></div>
+        <div class="text">
+            <h2>MARSA MAROC CASABLANCA</h2>
+            <h3>OPERATEUR PORTUAIRE</h3>
+            <p>Marsa Maroc est une société d’exploitation des ports, créée conformément au décret N°284844 du premier janvier 2007 pris pour application de la loi 15-02 promulguée par le dahir 184194 du 05 janvier 2007 portant création de la SODEP au nom commercial Marsa Maroc.
+                Marsa Maroc est un opérateur portuaire multi trafics, occupant la place de leader national de l’exploitation portuaire, avec une présence significative dans les 9 ports de commerce du Royaume. Dans le cadre de ses attributions, elle offre des services de logistique portuaire, qu’il s’agisse de services aux navires ou de services relatifs au traitement des marchandises. Au cours de l’année écoulée, elle a réalisé 38,7 millions de tonnes dont 12,6 millions de vracs liquides et 11,4 millions de vracs solides.
+                L’effectif global de Marsa Maroc est de plus de 2147 collaborateurs, dont 949 dans l’exécution qualifiée, 744 dans la maîtrise et 255 dans l’encadrement supérieur. Ces personnes sont issues du dégraissage de l’effectif de l’ODEP, à travers l’opération du départ volontaire et la répartition des effectifs entre l’ANP et Marsa Maroc.</p>
+            <a href="{{ url_for('login') }}">ACCÉDER</a>
+        </div>
+    </section>
+</body>
+</html>

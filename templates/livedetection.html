@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}Live Detection{% endblock %}
+
+{% block content %}
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+    <style>
+            
+          
+            
+            .livedetection_container {
+            max-width: 800px;
+            
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+            
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            overflow: hidden;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <div class="container">
+        <h1>Plaque d'immatriculation en direct</h1>
+        
+        
+            
+        <div class="video-container">
+            <iframe id="video_feed" src="{{ url_for('video_feed') }}" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+</main>
+{% endblock %}

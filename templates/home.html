@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<div class="row">
+  <h3>Detections</h3>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-success" role="alert">
+      {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+  </div>
+  <div class="col-md-12">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Matricule</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for detection in list_detections %}
+        <tr>
+          <td>{{ detection.id_detection }}</td>
+          <td>{{ detection.matricule }}</td>
+          <td>
+            <a href="{{ url_for('edit_detection', id_detection=detection.id_detection) }}" class="btn btn-primary">Edit</a>
+            <form action="{{ url_for('delete_detection', id_detection=detection.id_detection) }}" method="POST" style="display:inline-block;">
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <form action="{{ url_for('add_detection') }}" method="post">
+      <div class="form-group">
+        <label for="id_camera">ID Camera</label>
+        <select class="form-control" name="id_camera" id="id_camera" required>
+          {% for camera_id in camera_ids %}
+            {% set camera_id_value = camera_id[0] %} {# Extraction de la valeur de l'ID de la caméra #}
+            <option value="{{ camera_id_value }}">{{ camera_id_value }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="matricule">Matricule</label>
+        <input type="text" class="form-control" name="matricule" id="matricule" placeholder="Enter Matricule" required>
+      </div>
+      <button type="submit" class="btn btn-success">Add</button>
+    </form>
+  </div>
+</div>
+
+</div>
+{% endblock %}

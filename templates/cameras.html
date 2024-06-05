@@ -1,0 +1,95 @@
+{% extends "layout.html" %}
+
+{% block title %}Cameras{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Add a new camera</h2>
+    {% with messages = get_flashed_messages(category_filter=["success_camera"]) %}
+      {% if messages %}
+        <div class="alert alert-success">
+          {{ messages[0] }}
+        </div>
+      {% endif %}
+    {% endwith %}
+    <form action="{{ url_for('add_new_camera') }}" method="post"> 
+        <div class="form-group">
+            <label for="id_port">Port ID:</label>
+            <select name="id_port" id="id_port" class="form-control" required>
+                <option value="">Choose a port...</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="type_camera">Camera type:</label>
+            <select name="type_camera" id="type_camera" class="form-control" required>
+                <option value="">Choose the type...</option>
+                <option value="entree">Entrance</option>
+                <option value="sortie">Exit</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+    </form>
+
+    <!-- Formulaire de détection de plaque d'immatriculation -->
+    <h2>Detect License Plate</h2>
+    <form id="plateDetectionForm" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="image">Upload Image:</label>
+            <input type="file" class="form-control-file" id="plateImage" name="image" required>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="detectPlate()">Detect</button>
+    </form>
+
+    <!-- Div pour afficher le résultat de la détection -->
+    <div id="plateDetectionResult" class="plate-result"></div>
+</div>
+
+<!-- CSS pour le cadre du résultat de la détection -->
+<style>
+    .plate-result {
+        border: 2px solid #ccc;
+        padding: 10px;
+        margin-top: 20px;
+    }
+
+    .plate-image {
+        max-width: 100%;
+        margin-top: 10px;
+    }
+</style>
+
+<script>
+    function detectPlate() {
+        var formData = new FormData();
+        formData.append('image', document.getElementById('plateImage').files[0]);
+
+        fetch('{{ url_for("detect_license_plate") }}', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            var resultDiv = document.getElementById('plateDetectionResult');
+            if (data.text) {
+                resultDiv.innerHTML = '<p>License Plate Detected: ' + data.text + '</p>';
+                if (data.plate_image) {
+                    resultDiv.innerHTML += '<img src="' + data.plate_image + '" class="plate-image">';
+                }
+            } else {
+                resultDiv.innerHTML = '<p>No license plates detected.</p>';
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
+
+{% endblock %}
